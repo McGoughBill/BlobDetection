@@ -70,7 +70,8 @@ for epoch in range(epochs):
         target_box = targets[:, :, 1:5, :, :]
 
         # Compute losses without reduction
-        loss_box = mse_loss(pred_box, target_box) * target_objectness
+        loss_box = mse_loss(pred_box, target_box)
+        loss_box = torch.where(target_objectness > 0, loss_box, torch.tensor(0.0, device=device))
         loss_box_term = loss_box.sum() / (target_objectness.sum() + 1e-6)
 
         loss_cls = cce_loss(torch.swapaxes(pred_cls, 1, 2), target_cls_idx)

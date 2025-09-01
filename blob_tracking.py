@@ -137,20 +137,27 @@ if __name__ == "__main__":
     from skimage.filters import threshold_otsu
 
     plt.switch_backend('tkagg')
-    source_videos = "/Volumes/Crucial X6/object detection/FlyObjDataset/Segmented Dataset Based on YOLOv7 for Drone vs. Bird Identification for Deep and Machine Learning Algorithms/Raw Video/Drone"
-    root_dir = '/Volumes/Crucial X6/object detection/FlyObjDataset/Segmented Dataset Based on YOLOv7 for Drone vs. Bird Identification for Deep and Machine Learning Algorithms/images'
+    root_dir = './images_subdir/'
     #
     # convert_videos_in_dir(source_videos, root_dir)
 
     loader = ImageSeriesLoader(root_dir)
-    images = loader.load_series(type='drone')
+    views = 10
+    switch = True
+
+    lo=50
+    hi=200
+    sigma1=1
+    sigma2=10
 
     #show the last three images
-    for img in images:
+    for _ in range(views):
+
+        img = loader.load_series(type='bird' if switch else 'drone')[0]
         gray = rgb_to_gray(img)
-        dog1 = compute_dog(gray,sigma1=0.2,sigma2=10)# an intermediate pass filter between pixel lengths of 0.5 and 7
+        dog1 = compute_dog(gray,sigma1=sigma1,sigma2=sigma2)# an intermediate pass filter between pixel lengths of 0.5 and 7
         otsu = otsu_threshold(gray)
-        dog_intermediate = np.where((dog1>25) & (dog1<230), 1, 0)
+        dog_intermediate = np.where((dog1>lo) & (dog1<hi), 1, 0)
 
         #fill holes in dog_intermediate
         filled = scipy.ndimage.binary_fill_holes(dog_intermediate).astype(np.uint8)
@@ -186,4 +193,5 @@ if __name__ == "__main__":
         plt.tight_layout()
         plt.show()
 
+        switch = not switch
 

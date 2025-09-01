@@ -1,9 +1,8 @@
-# BlobDetection
+# Drone detection repo (experimental)
 
-This repository contains code for detecting blobs in images using various computer vision techniques. Blob detection is useful in many applications, including object recognition, image segmentation, and feature extraction.
+This repository contains code for DL object detection training and also detecting blobs in images using various computer vision techniques.
 
-
-The following image was generated using the blob_tracking.py code.
+## Blob detection
 
 My key insight was that drones are quite consistently spiny. their arms, blades, shape, often contains components between 5-20 pixels in size. So, a band-pass filter that keeps features in that range is likely to be useful.
 
@@ -11,4 +10,10 @@ The DoG was perfect for this. Then, the intermediate thresholding filter essenti
 
 Then, fill the holes to make a contiguous region.
 
+See some example below, using the blob_tracking.py code (apologies for the messy code, I was experimenting a lot). I used lo=50, hi=200, sigma1=0.2,sigma2=10. Feel free to experiment with these values.
+
+example 1:
 ![img.png](img.png)
+
+example 2:
+![img_1.png](img_1.png)

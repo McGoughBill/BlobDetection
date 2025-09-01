@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-from collections import deque
 import os
 import matplotlib.pyplot as plt
 
@@ -52,40 +51,6 @@ class ImageSeriesLoader:
         image_paths = sorted(self.unique_dict[series_id])
         images = [np.asarray(cv2.imread(p)) for p in image_paths]
         return images
-
-
-
-
-class BlobTracker:
-    def __init__(self, max_history=4, max_distance=50):
-        """
-        max_history: number of previous frames to consider
-        max_distance: max distance to match blobs between frames
-        """
-        self.max_history = max_history
-        self.max_distance = max_distance
-        self.history = deque(maxlen=max_history)  # stores previous frames' blob centroids
-        self.tracks = {}  # track_id -> centroid
-        self.next_id = 0
-
-    def detect_blobs(self, frame):
-        """
-        Detect blobs in the frame using simple thresholding.
-        Returns list of centroids [(x, y), ...]
-        """
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        _, mask = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
-        mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, np.ones((3, 3), np.uint8))
-
-        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        centroids = []
-        for cnt in contours:
-            if cv2.contourArea(cnt) < 50:  # filter small noise
-                continue
-
-
-import os
-import cv2
 
 
 def video_to_images(video_path, dest_dir, prefix="frame"):

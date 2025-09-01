@@ -13,7 +13,7 @@ Then, fill the holes to make a contiguous region.
 See some example below, using the blob_tracking.py code (apologies for the messy code, I was experimenting a lot). I used lo=50, hi=200, sigma1=0.2,sigma2=10. Feel free to experiment with these values.
 
 example 1:
-![img.png](img.png)
+![img.png](sample_imgs/img.png)
 
 example 2:
-![img_1.png](img_1.png)
+![img_1.png](sample_imgs/img_1.png)

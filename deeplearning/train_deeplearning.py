@@ -2,9 +2,9 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
-from model_generator_deeplearning import EfficientNetYOLO
-from yolo_target_generator_deeplearning import build_yolo_targets_batch
-from dataset_deeplearning import YOLODataset
+from deeplearning.model_generator_deeplearning import EfficientNetYOLO
+from deeplearning.yolo_target_generator_deeplearning import build_yolo_targets_batch
+from deeplearning.dataset_deeplearning import YOLODataset
 
 seed = 0
 torch.manual_seed(seed)

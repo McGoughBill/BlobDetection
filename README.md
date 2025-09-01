@@ -2,6 +2,7 @@
 
 This repository contains code for DL object detection training and also detecting blobs in images using various computer vision techniques.
 
+the deep learning stuff is not linked up to training on the images_subdir dataset. This code cannot run without the dataset on my local mac. sorry!
 ## Blob detection
 
 My key insight was that drones are quite consistently spiny. their arms, blades, shape, often contains components between 5-20 pixels in size. So, a band-pass filter that keeps features in that range is likely to be useful.
